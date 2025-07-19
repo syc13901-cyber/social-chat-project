@@ -1,7 +1,6 @@
 {
   "src": [
-    "pages/Index",
-    "pages/TestPage",
-    "pages/Welcome"
+    "pages/Welcome",
+    "pages/NetPage"
   ]
 }

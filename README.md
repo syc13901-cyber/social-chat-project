@@ -1,39 +1,37 @@
-# 社交聊天项目
+## 知聊项目
 
-#### 介绍
-{**以下是 Gitee 平台说明，您可以替换此简介**
-Gitee 是 OSCHINA 推出的基于 Git 的代码托管平台（同时支持 SVN）。专为开发者提供稳定、高效、安全的云端软件开发协作平台
-无论是个人、团队、或是企业，都能够用 Gitee 实现代码托管、项目管理、协作开发。企业项目请看 [https://gitee.com/enterprises](https://gitee.com/enterprises)}
+在万物智联与信息过载的双重背景下，用户对即时通讯工具的需求已从“功能堆砌”升级为“场景化智能体验”。为响应这一趋势，“知聊APP”依托鸿蒙操作系统（HarmonyOS），以“轻量化设计、智能化协同、全场景覆盖”为核心理念，重新定义下一代社交沟通范式。
 
-#### 软件架构
-软件架构说明
+![图片1](./assets/pic1.png)
 
+### 组件导航和页面路由概述
 
-#### 安装教程
+页面是指由布局、组件、交互逻辑等构成的可视化交互单元，承载着特定功能逻辑与信息展示，是用户与应用进行操作交互的核心界面载体。一个完整的应用往往由多个页面组成，组件导航（Navigation）和页面路由（@ohos.router）均提供了应用内的页面跳转能力。
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+- 在组件导航（Navigation）框架下，“页面”通过NavDestination组件承载，特指一个NavDestination组件包含的内容。
+- 在页面路由（@ohos.router）框架下，“页面”特指@Entry装饰的自定义组件。
 
-#### 使用说明
+相较而言，组件导航（Navigation）将页面放在Navigation组件内部进行跳转，具备更强的一次开发多端部署能力，可以进行更加灵活的页面栈操作，同时支持更丰富的动效和生命周期。因此，推荐使用组件导航（Navigation）来实现页面跳转以及组件内的跳转，以获得更佳的使用体验。
 
-1.  xxxx
-2.  xxxx
-3.  xxxx
+#### 页面路由
 
-#### 参与贡献
-
-1.  Fork 本仓库
-2.  新建 Feat_xxx 分支
-3.  提交代码
-4.  新建 Pull Request
+```
+  router.pushUrl({url: 'pages/TestPage'})
+```
 
 
-#### 特技
 
-1.  使用 Readme\_XXX.md 来支持不同的语言，例如 Readme\_en.md, Readme\_zh.md
-2.  Gitee 官方博客 [blog.gitee.com](https://blog.gitee.com)
-3.  你可以 [https://gitee.com/explore](https://gitee.com/explore) 这个地址来了解 Gitee 上的优秀开源项目
-4.  [GVP](https://gitee.com/gvp) 全称是 Gitee 最有价值开源项目，是综合评定出的优秀开源项目
-5.  Gitee 官方提供的使用手册 [https://gitee.com/help](https://gitee.com/help)
-6.  Gitee 封面人物是一档用来展示 Gitee 会员风采的栏目 [https://gitee.com/gitee-stars/](https://gitee.com/gitee-stars/)
+#### 组件导航
+
+![导航组件Navigation](./assets/导航组件Navigation.png)
+
+
+
+![1752720495705](./assets/1752720495705.png)
+
+#### 网络通讯
+
+![1752742720105](./assets/1752742720105.png) 
+
+
+

@@ -1,5 +1,10 @@
 import { CommonTitle } from "./UIComponent"
 import { photoAccessHelper } from "@kit.MediaLibraryKit";
+import { fileIo } from "@kit.CoreFileKit";
+import axios, { AxiosResponse, FormData } from "@ohos/axios";
+import { ResponseDao } from "../pages/NetPage";
+import { IAccount, IAvage } from "../model/APIModel";
+import { promptAction } from "@kit.ArkUI";
 
 @Builder
 function RegisterBuilder() {
@@ -17,6 +22,7 @@ export struct Register {
     @State confirmPassword: string = ''
     @State isSelect: boolean = false // 协议是否选中
     avatarUrl: string = '' // 头像地址
+    @State avatarFile: string = '' // 服务返回头像地址
 
     selectOptions: photoAccessHelper.PhotoSelectOptions = {
         MIMEType: photoAccessHelper.PhotoViewMIMETypes.IMAGE_TYPE,
@@ -49,9 +55,10 @@ export struct Register {
                     // 获取图片
                     const photoPiker = new photoAccessHelper.PhotoViewPicker()
                     photoPiker.select(this.selectOptions).then((result)=>{
-                        console.log('result ',JSON.stringify( result))
                         if(result.photoUris.length > 0){
                             this.avatar = result.photoUris[0]
+                            // 上传头像到服务器
+                            this.updataAvatar(result.photoUris[0])
                         }
                     })
                 })
@@ -132,13 +139,70 @@ export struct Register {
                     .borderRadius(4)
                     .fontWeight(500)
                     .margin({ top: 43 })
-                    .onClick(async () => {
+                    .onClick( () => {
+                        // 请求参数
+                        const account:IAccount = {
+                            email:this.email,
+                            nickname:this.nickname,
+                            gender:this.gender,
+                            password1:this.password,
+                            password2:this.confirmPassword,
+                            avatar:this.avatarFile
+                        }
 
+                        // 调用注册接口，用户注册
+                        axios({
+                            method:"POST",
+                            url:"http://47.109.74.84:9999/ddchat/index/register",
+                            data:account
+                        }).then((res: AxiosResponse<ResponseDao<string>>)=>{
+                            const data:ResponseDao<string> = res.data
+                            if(data.code == "S1"){
+                                promptAction.showToast({message:'注册成功!'})
+                            }else{
+                                promptAction.showToast({message:data.message})
+                            }
+                        })
 
                     })
 
             }.width('100%').height('100%')
             .backgroundColor('#f5f5f5')
         }.hideTitleBar(true)
+    }
+
+    /**
+     * 头像上传
+     */
+    updataAvatar(fileUrl:string){
+        // 保存头像到鸿蒙应用沙箱缓存
+        const file = fileIo.openSync(fileUrl,fileIo.OpenMode.READ_ONLY)
+        const filePath = getContext().cacheDir + '/' + file.name
+        fileIo.copyFileSync(file.fd,filePath)  // 拷贝文件
+        fileIo.closeSync(file.fd)
+
+        // 构造FormData对象
+        const formData = new FormData()
+        const userID = Math.floor(Math.random() * 1000000)
+        formData.append('userId',userID+'')
+        formData.append('image',`internal://cache/${file.name}`)
+
+        // 调用头像上传接口完成头像上传
+        axios({
+            method:"POST",
+            url:"http://47.109.74.84:9999/ddchat/image/uploadAvatar",
+            data:formData,
+            headers:{
+                'Content-Type':'multipart/form-data'
+            },
+            context:getContext()
+        }).then((res: AxiosResponse<ResponseDao<IAvage>>)=>{
+            console.log(JSON.stringify(res))
+            const data:ResponseDao<IAvage> = res.data
+            console.log(JSON.stringify(data))
+            if(data.code == "S1"){
+                this.avatarFile = '/'+data.data.url // /resource/image/avatar-of-user-916687.png
+            }
+        })
     }
 }

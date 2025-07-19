@@ -1,4 +1,8 @@
 import { CommonTitle } from "./UIComponent";
+import axios, { AxiosResponse } from '@ohos/axios'
+import { IUser, IUserDao, ResponseDao } from "../model/APIModel";
+import { promptAction } from "@kit.ArkUI";
+import  PreferenceUtil  from "../utils/PreferenceUtils";
 
 @Builder
 function LoginBuilder(){
@@ -8,8 +12,8 @@ function LoginBuilder(){
 @Component
 export struct Login {
     @Consume pageInfos:NavPathStack;
-    @State email: string = ''
-    @State password: string = ''
+    @State email: string = 'zhousir@qq.com'
+    @State password: string = '123456'
 
     build() {
         NavDestination() {
@@ -71,11 +75,29 @@ export struct Login {
 
     }
 
-
-
     onLogin() {
-        // 如果登录成功，则跳转到主页
-        this.pageInfos.pushPathByName("Main",null,false)
+        const user:IUser = {
+            email:this.email,
+            password:this.password
+        }
+        axios({
+            method:"POST",
+            url:"http://47.109.74.84:9999/ddchat/index/login",
+            data:user
+        }).then(async (res: AxiosResponse<ResponseDao<IUserDao>>)=>{
+
+            const data:ResponseDao<IUserDao> = res.data
+            if(data.code == "S1"){
+                // 1. 保存用户信息
+                await PreferenceUtil.putPreferenceValue('ACCOUNT_PREFERENCE', 'ACCOUNT', data.data)
+                // 2. 如果登录成功，则跳转到主页
+                this.pageInfos.clear()
+                this.pageInfos.pushPathByName("Main",null,false)
+            }else{
+                promptAction.showToast({message:data.message})
+            }
+        })
+
 
     }
 }

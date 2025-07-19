@@ -1,137 +1,106 @@
-/**
- *  ArtTs基础语法:
- *   1.数据类型
- *    基本数据类型
- *     string 字符串类型
- *         "hello"   'world'
- *     number 数值类型
- *         100
- *     boolean  布尔类型
- *         true  false
- *     undefined 未定义类型
- *     null  空类型
- *      ...
- *
- *    复杂类型
- *      数组  [10,20,30]
- *            0   1  2   索引号
- *      对象  {name:'张三',age:18}
- *           左括号开始，右括号结束，里面是名称值对的集合
- *           [
- *              {name:'张三',age:18,score:99},
- *              {nane:'李四',age:18,score:99}
- *           ]
- *       ...
- *
- *
- *   2.变量
- *       语法:  变量名：数据类型 = 值;
- *             let name:string = '张三';
- *              name = '李四'
- *             let age:number = 18;
- *             let  isOk:boolean = true;
- *
- *    常量
- *       const name:string = '张三';
- *
- *
- *   3. 运算符
- *        算术运算符   + - * / %
- *        比较运算符   > < >= <= == !=
- *        逻辑运算符   && || !
- *        ...
- *
- *   4. 流程控制语句
- *     - 逻辑分支语句
- *        if(条件表达式){
- *            // 语句块
- *        }
- *        if-else
- *
- *     - 循环语句
- *        for(初始值; 循环条件；改变循环条件的语句){
- *            // 语句块
- *        }
- *        while
- *        do-while
- *    5. 函数
- *       function 函数名(形参){
- *           // 封装的语句块
- *       }
- *
- *       const 函数名 = function(){
- *
- *       }
- *
- *       箭头函数
- *        (参数)=>{
- *           语句块
- *        }
- *
- *
- () => {
- this.message = 'Welcome';
- }
- *    定义学生类
- *     class Student{
- *          name:string;
- *          age:number;
- *          constructor(_name:string,_age:string){
- *              this.name = _name
- *              this.age = _age
- *          }
- *     }
- *
- *     new Student('张三',18) // 姓名是张三年龄是18一个人
- *     new Student('李四',20)
- *
- *    interface 定义接口
- *
- * 模块的导入导出
- *    export 模块
- *    import 模块  from '模块路径'
- *
- */
-import { router } from '@kit.ArkUI';
-
+import home from './home/Home'
+import contact from './contact/Contact'
+import discovery from './discovery/Discovery'
+import mine from './mine/Mine'
+import WindowManager from '../utils/WindowManager'
 
 @Entry
 @Component
 struct Index {
-    // 定义一个名为message的字符串类型变量，初始值为Hello HarmonyOS
-    message: string = 'Hello harmoneyOS';
+  @State private currentIndex: number = 0
+  private tabController: TabsController = new TabsController()
+  private tabTitles: string[] = ["微信", "通信录", "发现", "我"]
+  private tabTextColors: string[] = ["#040404", "#57be6a"]
+  private tabTipCounts: number[] = [5, 0, 8, 0]
 
-    build() {
-        // Column容器组件线型布局，默认垂直排列
-        Column() {
-            Text(this.message)
-
-            Text('Hello World')
-
-            Button({ type: ButtonType.Circle }) {
-                Image($r('app.media.camera'))
-                    .width(20)
-                    .height(20)
-            }
-            .width(120)
-            .height(120)
-            .backgroundColor('#eeeeee')
-
-            Button('同意并注册', { type: ButtonType.Normal })
-                .backgroundColor('#4fd1c5')
-                .width(120)
-                .height(40)
-                .borderRadius(8)
-                .margin({top: 20})
-                .onClick(() => {
-                    // 路由跳转
-                    // this.getUIContext().getRouter.pushURL("")
-                    router.pushUrl({url: 'pages/TestPage'})
-                })
-
-
+  build() {
+    Column() {
+      Tabs({ barPosition: BarPosition.End, controller: this.tabController }) {
+        // 微信（首页）
+        TabContent() {
+          home()
         }
-        .height('100%')
-        .width('100%')
+        .tabBar(this.createTabMenu(0))
+
+        // 通讯录
+        TabContent() {
+          contact()
+        }
+        .tabBar(this.createTabMenu(1))
+
+        // 发现
+        TabContent() {
+          discovery()
+        }
+        .tabBar(this.createTabMenu(2))
+
+        // 我的
+        TabContent() {
+          mine()
+        }
+        .tabBar(this.createTabMenu(3))
+      }
+      .width("100%")
+      .height("100%")
+      .barHeight(65)
+      .backgroundColor("#f4f4f4")
+      .vertical(false)
+      .layoutWeight(1)
+      .padding({ bottom: WindowManager.navBarHeight })
+      .onChange((index: number) => {
+        this.currentIndex = index
+      })
+
     }
+    .width('100%')
+    .height('100%')
+  }
+
+  @Builder
+  createTabMenu(index: number) {
+
+    Stack({ alignContent: Alignment.Center }) {
+
+      // 数字右标
+      Badge({
+        count: this.tabTipCounts[index],
+        maxCount: 99,
+        position: BadgePosition.RightTop,
+        style: {
+          color: 0xFFFFFF,
+          fontSize: 13,
+          badgeSize: 20,
+          badgeColor: Color.Red
+        }
+      }) {
+        Column() {
+          /**
+           * Contain  图片按比例缩放以适应容器边界，可能会出现空白区域
+           Cover  图片按比例缩放以填充容器，可能会被裁剪
+           Auto  默认值，图片大小保持原始大小
+           Fill  图片拉伸以填充容器，可能会出现失真
+           ScaleDown  图片按比例缩小以适应容器边界，但是不会放大图片
+           None  不进行任何缩放操作，即使图片溢出容器也不会被裁剪或缩放
+           */
+          // icon图标
+          Image(this.currentIndex === index ? `/images/main_page_index${index}_pre.png` :
+            `/images/main_page_index${index}_nor.png`)
+            .width(29.714)
+            .height(26)
+            .objectFit(ImageFit.Fill)
+            .margin({ bottom: 3 })
+          // 文本
+          Text(this.tabTitles[index])
+            .fontColor(this.tabTextColors[this.currentIndex === index?1:0])
+            .fontSize(14)
+        }
+        .backgroundColor(Color.Transparent)
+        .justifyContent(FlexAlign.Center)
+      }
+      .width(42)
+      .height(40)
+    }
+    .width("100%")
+    .height("100%")
+  }
 }
