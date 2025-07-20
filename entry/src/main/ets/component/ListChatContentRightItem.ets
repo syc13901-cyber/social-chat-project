@@ -25,10 +25,10 @@ export default struct ListChatContentRightItem {// 聊天内容-右侧
             .backgroundColor("#a9ea7a")
         } else if (this.data?.msgType === 2) {
           Row() {
-            Text(this.data?.msg)
-              .fontColor(Color.Black)
-              .fontSize(18)
-              .fontWeight(500)
+            //Text(this.data?.msg)
+            //  .fontColor(Color.Black)
+             // .fontSize(18)
+             // .fontWeight(500)
 
             Image(this.data?.img)
               .width(28)
