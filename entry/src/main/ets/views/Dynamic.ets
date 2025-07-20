@@ -1,4 +1,6 @@
 import WindowManager from '../utils/WindowManager'
+import { IUserDao } from "../pages/NetPage"
+import PreferenceUtil from "../utils/PreferenceUtils"
 
 interface User {
     name: string;
@@ -14,6 +16,23 @@ interface MomentItem {
 @Entry
 @Component
 export struct Dynamic{
+    @State account: IUserDao = {
+        userInfo: {
+            id: "",
+            email: "",
+            nickname: "",
+            gender: 0,
+            avatar: ""
+        },
+        token: ""
+    }
+
+    async aboutToAppear() {
+        const account: IUserDao =
+            await PreferenceUtil.getPreferenceValue('ACCOUNT_PREFERENCE', 'ACCOUNT', '') as IUserDao
+        this.account = account
+    }
+
     // 示例动态数据
     @State moments: MomentItem[] = [
         {
@@ -55,15 +74,15 @@ export struct Dynamic{
                 Row() {
                     Blank().layoutWeight(1)
                     Column() {
-                        Text('Moa')
+                        Text(this.account?.userInfo?.nickname)
                             .fontColor(Color.White)
-                            .fontSize(15)
+                            .fontSize(20)
                             .fontWeight(FontWeight.Bold)
                             .margin({ bottom: 8 })
-                        Image($r('app.media.ic_user_head4'))
-                            .width(56)
-                            .height(56)
-                            .borderRadius(12)
+                        Image('http://47.109.74.84:9999' + this.account?.userInfo?.avatar)
+                            .width(64)
+                            .height(64)
+                            .borderRadius(32)
                     }
                     .margin({ right: 20, bottom: 10 })
                 }

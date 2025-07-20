@@ -1,6 +1,8 @@
 {
   "src": [
     "pages/Welcome",
-    "pages/NetPage"
+    "pages/NetPage",
+    "views/ChatPage",
+    "component/ChatingInformpage"
   ]
 }

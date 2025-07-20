@@ -76,7 +76,7 @@ export struct Register {
                         .width('45%')
                         .height(47)
                         .borderRadius(4)
-                        .backgroundColor(this.gender == '男' ? '#92DEC5' : '#ffffff')
+                        .backgroundColor(this.gender == '男' ? '#ffc08af6' : '#ffffff')
                         .fontColor(this.gender == '男' ? '#ffffff' : '#000000')
                         .onClick(() => {
                             this.gender = '男'
@@ -86,7 +86,7 @@ export struct Register {
                         .width('45%')
                         .height(47)
                         .borderRadius(4)
-                        .backgroundColor(this.gender == '女' ? '#92DEC5' : '#ffffff')
+                        .backgroundColor(this.gender == '女' ? '#ffc08af6' : '#ffffff')
                         .fontColor(this.gender == '女' ? '#ffffff' : '#000000')
                         .onClick(() => {
                             this.gender = '女'
@@ -123,7 +123,7 @@ export struct Register {
                     .type(InputType.Password)
 
                 Row() {
-                    Checkbox().selectedColor('#92dec5')
+                    Checkbox().selectedColor('#ffc08af6')
                         .select(this.isSelect).onChange((value: boolean) => {
                         this.isSelect = value
                     })
@@ -135,7 +135,7 @@ export struct Register {
                 Button('同意并注册', { type: ButtonType.Normal, stateEffect: true })
                     .width('90%')
                     .height(47)
-                    .backgroundColor('#4FD1C5')
+                    .backgroundColor('#ffc08af6')
                     .borderRadius(4)
                     .fontWeight(500)
                     .margin({ top: 43 })

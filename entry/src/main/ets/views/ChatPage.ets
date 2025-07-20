@@ -1,18 +1,18 @@
 import router from '@ohos.router';
-import Toolbar from '../../component/Toolbar';
-import ListChatContentLeftItem from '../../component/ListChatContentLeftItem';
-import ListChatContentRightItem from '../../component/ListChatContentRightItem';
+import Toolbar from '../component/Toolbar';
+import ListChatContentLeftItem from '../component/ListChatContentLeftItem';
+import ListChatContentRightItem from '../component/ListChatContentRightItem';
 import window from '@ohos.window';
-import WindowManager from '../../utils/WindowManager';
+import WindowManager from '../utils/WindowManager';
 import ChatFunctionBar from './ChatFuntionBar';
 import { ChatContentItemData } from './ChatContentItemData';
 import ChatPageParam from './ChatPageParam';
-import { Toast } from '../../utils/Toast';
-import SpeechRecognizerManager from '../../utils/SpeechRecognizerManager';
-import { AudioCaptureManager, RecordFile } from '../../utils/AudioCapturerManager';
+import { Toast } from '../utils/Toast';
+import SpeechRecognizerManager from '../utils/SpeechRecognizerManager';
+import { AudioCaptureManager, RecordFile } from '../utils/AudioCapturerManager';
 import { componentUtils } from '@kit.ArkUI';
 import { vibrator } from '@kit.SensorServiceKit';
-import { PermissionUtils } from '../../utils/PermissionUtils';
+import { PermissionUtils } from '../utils/PermissionUtils';
 
 enum WXInputType {
   /**
@@ -605,7 +605,7 @@ export default struct ChatPage {
           .height(800)
           .backgroundColor("#AAAAAA")
           .borderRadius("50%")// .position({ top: 0 ,left:"-50%"})
-            // .position({ top: 0 ,left:"-50%"})
+          // .position({ top: 0 ,left:"-50%"})
           .position({ top: 0, left: "50%" })
           .translate({
             x: "-50%",

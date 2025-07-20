@@ -102,7 +102,7 @@ export struct My {
                     .height(48)
                     .fontSize(20)
                     .fontColor('#fff')
-                    .backgroundColor('#4FD6D6')
+                    .backgroundColor('#ffc08af6')
                     .borderRadius(8)
                     .margin({ left: '5%', right: '5%' })
                     .onClick(() => {

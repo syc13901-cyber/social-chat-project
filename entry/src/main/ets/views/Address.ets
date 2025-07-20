@@ -14,8 +14,7 @@ export struct Address{
             contactList: [
                 { name: "新的朋友", head: $r("app.media.ic_new_friend") },
                 { name: "群聊", head: $r("app.media.ic_group_chat") },
-                { name: "标签", head: $r("app.media.ic_tag") },
-                { name: "公众号", head: $r("app.media.ic_official_account") }
+                { name: "标签", head: $r("app.media.ic_tag") }
             ]
         },
         {
@@ -131,7 +130,7 @@ export struct Address{
                 .selectedBackgroundColor(Color.Transparent)
                 .usingPopup(true)
                 .popupColor(Color.Red)
-                .popupBackground("#57be6a")
+                .popupBackground("#ffc08af6")
                 .popupFont({ size: 32, weight: FontWeight.Bolder })
                 .itemSize(20)
                 .alignStyle(IndexerAlign.Right)

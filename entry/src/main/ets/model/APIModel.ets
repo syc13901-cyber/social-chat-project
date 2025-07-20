@@ -1,8 +1,8 @@
-export interface IUser{
+export interface IUser{//用户信息
     email:string,
     password:string
 }
-export interface ResponseDao<T> {
+export interface ResponseDao<T> {//响应数据
     success: boolean;
     message: string;
     code: string;

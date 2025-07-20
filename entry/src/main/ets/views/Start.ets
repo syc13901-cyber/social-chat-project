@@ -13,9 +13,9 @@ struct Start {
                     Image($r('app.media.welcome')).width('100%').padding(16)
 
                     Column() {
-                        Text('欢迎来到闪信喵').fontSize(24).fontColor('#4B5563').fontWeight(600)
+                        Text('欢迎来到FlashMeow').fontSize(30).fontColor('#4B5563').fontWeight(600)
                             .margin({ top: 16, bottom: 16 })
-                        Text('开启你的智能对话之旅').fontSize(14).fontColor('#4B5563')
+                        Text('开启你的智能对话之旅').fontSize(26).fontColor('#4B5563')
                     }.margin({ top: 10, bottom: 20 })
 
                     Column() {

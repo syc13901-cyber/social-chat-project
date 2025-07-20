@@ -1,113 +1,70 @@
-import { CommonTitle } from "./UIComponent";
+import router from '@ohos.router'
+import ListChatItem, { ChatItemData } from '../component/ListChatItem'
+import WechatToolbar from '../component/WechatToolbar'
 
-interface MessageItem {
-    id: number;
-    avatar: string;
-    name: string;
-    content: string;
-    time: string;
-    unread: number;
-}
 @Preview
 @Component
 export struct Chat {
-    private messageList: MessageItem[] = [
-        {
-            id: 1,
-            avatar: '/resources/base/media/chat_header_icon.png',
-            name: '陈小姐',
-            content: '好的，那我们下午3点见面讨论项目细节',
-            time: '14:30',
-            unread: 3
-        },
-        {
-            id: 2,
-            avatar: '/resources/base/media/my_header.png',
-            name: '王总监',
-            content: '项目报告我已经审核完毕，请查收',
-            time: '13:45',
-            unread: 0
-        },
-        {
-            id: 3,
-            avatar: '/resources/base/media/dynamic_header1.png',
-            name: '产品开发群',
-            content: '张工：新功能原型已经更新到最新版本',
-            time: '12:20',
-            unread: 12
-        },
-        {
-            id: 4,
-            avatar: '/resources/base/media/chat1.png',
-            name: '刘经理',
-            content: '周五的会议记得准备一下演示文稿',
-            time: '昨天',
-            unread: 0
-        },
-        {
-            id: 5,
-            avatar: '/resources/base/media/avg.png',
-            name: '赵总',
-            content: '客户反馈已经整理完毕，请过目',
-            time: '昨天',
-            unread: 0
-        },
-        {
-            id: 6,
-            avatar: '/resources/base/media/welcome.png',
-            name: '市场部工作群',
-            content: '李总：下周一例会改到下午2点',
-            time: '周一',
-            unread: 0
+  @State chatList: ChatItemData[] = [
+    {
+      headSrc: $r("app.media.ic_user_head2"),
+      nickname: "老婆",
+      content: "今晚给你做了好吃的，早点下班哦😊",
+      time: "17:21"
+    },
+    {
+      headSrc: $r("app.media.ic_user_head3"),
+      nickname: "游戏好友",
+      content: "我今天又拿了五杀，牛逼不？",
+      time: "15:38"
+    },
+    { headSrc: $r("app.media.ic_user_head4"),
+      nickname: "同事小李",
+      content: "领导，报给写好了，请过目",
+      time: "14:12"
+    },
+    { headSrc: $r("app.media.ic_user_head5"),
+      nickname: "HR小孙",
+      content: "这个岗位还需要招两个人",
+      time: "12:08"
+    },
+    { headSrc: $r("app.media.ic_user_head6"),
+      nickname: "客户小潘",
+      content: "这是我们公司的报价，希望您能考虑下",
+      time: "昨天" },
+    { headSrc: $r("app.media.ic_user_head7"),
+      nickname: "老弟",
+      content: "好的，哥",
+      time: "周一" }
+  ]
+
+  build() {
+    Column() {
+      WechatToolbar({ title: "消息(5)" })
+
+      List() {
+        ForEach(this.chatList, (item: ChatItemData, index: number) => {
+          ListItem() {
+            ListChatItem({ data: item })
+          }
+          .onClick(() => {
+            router.pushUrl({ url: 'views/ChatPage',
+              params: {name:item.nickname}
+            })
+          })
+        })
+        ListItem() {
+          Divider().color('#0000').strokeWidth(0)
         }
-    ];
+      }
+      .divider({ strokeWidth: 0.8, color: '#f0f0f0', startMargin: 90, endMargin: 0 }) // 每行之间的分界线
+      .backgroundColor(Color.White)
+      .width("100%")
+      .height("100%")
 
-    build() {
-        Column() {
-            CommonTitle({ title: '消息中心' })
-            List() {
-                ForEach(this.messageList, (item: MessageItem) => {
-                    ListItem() {
-                        Row() {
-                            Image(item.avatar)
-                                .width(48).height(48)
-                                .borderRadius(24)
-                            Column() {
-                                Row() {
-                                    Text(item.name).fontWeight(600).fontSize(18)
-                                    if (item.unread > 0) {
-                                        Text(item.unread.toString())
-                                            .fontColor('#fff')
-                                            .backgroundColor('#F44336')
-                                            .borderRadius(10)
-                                            .fontSize(12)
-                                            .padding({
-                                                left: 6,
-                                                right: 6,
-                                                top: 2,
-                                                bottom: 2
-                                            })
-                                            .margin({ left: 6 })
-                                    }
-
-                                    Text(item.time).fontSize(14).fontColor('#9CA3AF')
-                                }.width('100%')
-
-                                Text(item.content)
-                                    .fontSize(15)
-                                    .fontColor('#6B7280')
-                                    .margin({ top: 4 }).width('100%')
-                            }.margin({ left: 12 })
-                        }
-                        .padding(12)
-                        .backgroundColor('#fff')
-                        .width('100%')
-                    }.width('100%')
-                }, (item: MessageItem) => item.id + "")
-            }
-        }
-        .backgroundColor('#F5F6FA')
-        .width('100%')
-        .height('100%')
     }
+    .width("100%")
+    .height("100%")
+    .backgroundColor("#f0f0f0")
+  }
 }

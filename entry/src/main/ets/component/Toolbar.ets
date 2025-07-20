@@ -32,13 +32,21 @@ export default struct Toolbar {
             .fontSize(16)
             .margin({ right: 15 })
             .fontWeight(400)
-            .onClick(unDevTip)
+            .onClick(()=>{
+              router.push({
+                url: 'component/ChatingInformpage'
+              })
+            })
         } else {
           Image(this.subIconSrc)
             .width(25)
             .height(25)
             .margin({ right: 15 })
-            .onClick(unDevTip)
+            .onClick(()=>{
+              router.push({
+                url: 'component/ChatingInformpage'
+              })
+            })
         }
 
       }
@@ -51,8 +59,4 @@ export default struct Toolbar {
     .zIndex(999)
     .padding({ top: WindowManager.statusBarHeight })
   }
-}
-
-const unDevTip = () => {
-  Toast.show("功能正在开发中...")
 }
