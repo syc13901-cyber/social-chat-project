@@ -16,8 +16,8 @@ export struct Main {
     tabBuilder(title: string, icon: Resource, index: number) {
         Column() {
             Image(icon).width(20).height(20)
-                .fillColor(this.currentIndex == index ? '#4CAF50' : '#9CA3AF')
-            Text(title).fontSize(12).fontColor(this.currentIndex == index ? '#4CAF50' : '#9CA3AF')
+                .fillColor(this.currentIndex == index ? '#ffc08af6' : '#9CA3AF')
+            Text(title).fontSize(12).fontColor(this.currentIndex == index ? '#ffc08af6' : '#9CA3AF')
                 .margin({ top: 4 })
         }.width('100%').height(50)
     }

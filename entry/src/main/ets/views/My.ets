@@ -112,7 +112,7 @@ export struct My {
             }
             .width('100%')
             .height('100%')
-            .backgroundColor('#F2FFF7')
+            .backgroundColor('#fff7f2ff')
         }
     }
     async onLogout() {

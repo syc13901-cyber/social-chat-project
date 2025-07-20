@@ -13,6 +13,8 @@ import { AudioCaptureManager, RecordFile } from '../utils/AudioCapturerManager';
 import { componentUtils } from '@kit.ArkUI';
 import { vibrator } from '@kit.SensorServiceKit';
 import { PermissionUtils } from '../utils/PermissionUtils';
+import { IUserDao } from "../pages/NetPage";
+import PreferenceUtil from "../utils/PreferenceUtils";
 
 enum WXInputType {
   /**
@@ -97,69 +99,24 @@ interface ScreenOffset {
 @Entry
 @Component
 export default struct ChatPage {
-  private name?: string = "微信"
+  private name?: string = "消息"
   private controller: TextAreaController = new TextAreaController()
   private scroller: Scroller = new Scroller()
   @State private chatText: string = ''
   private keyboardHeight: number = 0
   @State private funcBarHeight: number = 0;
   @State private showFuncBar: boolean = false;
-  @State private dataList: ChatContentItemData[] = [
-    {
-      name: "鲁班",
-      headSrc: $r("app.media.ic_user_head2"),
-      msgType: 0,
-      self: true,
-      msg: "现在几点了？"
+  @State private account: IUserDao = {
+    userInfo: {
+      id: "",
+      email: "",
+      nickname: "",
+      gender: 0,
+      avatar: ""
     },
-    {
-      name: "王昭君",
-      headSrc: $r("app.media.ic_user_head3"),
-      msgType: 0,
-      self: false,
-      msg: "10点，怎么了？"
-    },
-    {
-      name: "鲁班",
-      headSrc: $r("app.media.ic_user_head2"),
-      msgType: 1,
-      self: true,
-      msg: "",
-      img: $r("app.media.ic_its_over")
-    },
-    {
-      name: "鲁班",
-      headSrc: $r("app.media.ic_user_head2"),
-      msgType: 0,
-      self: true,
-      msg: "我要迟到了！！！",
-    }
-    ,
-    {
-      name: "王昭君",
-      headSrc: $r("app.media.ic_user_head3"),
-      msgType: 1,
-      self: false,
-      msg: "",
-      img: $r("app.media.ic_hahaha")
-    }
-    ,
-    {
-      name: "王昭君",
-      headSrc: $r("app.media.ic_user_head3"),
-      msgType: 0,
-      self: false,
-      msg: "那赶紧粗发吧，哈哈哈哈哈哈哈",
-    }
-    ,
-    {
-      name: "鲁班",
-      headSrc: $r("app.media.ic_user_head2"),
-      msgType: 0,
-      self: true,
-      msg: "嗯嗯，不说了，这就飞奔过去。。。",
-    }
-  ]
+    token: ""
+  }
+  @State private dataList: ChatContentItemData[] = []
   // 输入框内容
   @State
   textValue: string = ""
@@ -263,6 +220,50 @@ export default struct ChatPage {
         this.keyboardHeight = height;
       })
     })
+
+    // 获取用户信息
+    const account: IUserDao =
+      await PreferenceUtil.getPreferenceValue('ACCOUNT_PREFERENCE', 'ACCOUNT', '') as IUserDao
+    this.account = account
+
+    // 初始化聊天数据
+    this.dataList = [
+      {
+        name: this.account?.userInfo?.nickname || "我",
+        headSrc: $r("app.media.ic_user_head2"),
+        msgType: 0,
+        self: true,
+        msg: "产品的推广方案我初稿弄好了，重点放在了年轻群体聚集的社交平台，你有空帮我看看不？"
+      },
+      {
+        name: "王姐",
+        headSrc: $r("app.media.ic_user_head3"),
+        msgType: 0,
+        self: false,
+        msg: "行啊，发我邮箱吧，我下午抽时间看。对了，这次推广预算大概多少，方案里有提吗？"
+      },
+      {
+        name: this.account?.userInfo?.nickname || "我",
+        headSrc: $r("app.media.ic_user_head2"),
+        msgType: 0,
+        self: true,
+        msg: "有的，预算控制在 5 万以内，主要分在 KOL 合作和话题挑战赛上。不过我有点担心 KOL 报价会不会超，你经验丰富，觉得这个分配合理不？",
+      },
+      {
+        name: "王姐",
+        headSrc: $r("app.media.ic_user_head3"),
+        msgType: 0,
+        self: false,
+        msg: "我先看看具体名单，要是头部 KOL 太贵，咱们可以换成几个腰部的，性价比更高。另外，线下有没有考虑做点联动活动？比如和商场快闪店合作。",
+      },
+      {
+        name: this.account?.userInfo?.nickname || "我",
+        headSrc: $r("app.media.ic_user_head2"),
+        msgType: 0,
+        self: true,
+        msg: "这个思路不错！我之前没敢加，怕超预算。那我调整下方案，把线下快闪店的简单规划加上，晚点再发你一版？",
+      }
+    ]
   }
 
   onBackPress() {
@@ -290,7 +291,7 @@ export default struct ChatPage {
     //   插入到消息数组中
     this.chatList.push(voiceChat)
     this.dataList.push({
-      name: "鲁班",
+      name: this.account?.userInfo?.nickname || "我",
       headSrc: $r("app.media.ic_user_head2"),
       msgType: 2,
       voicePath: res.recordFilePath,
@@ -325,6 +326,16 @@ export default struct ChatPage {
     const TextChat = new ChatMessage(MessageType.text, this.voiceToText)
     //   插入到消息数组中
     this.chatList.push(TextChat)
+    // 添加到显示列表中
+    this.dataList.push({
+      name: this.account?.userInfo?.nickname || "我",
+      headSrc: $r("app.media.ic_user_head2"),
+      msgType: 0,
+      self: true,
+      msg: this.voiceToText,
+    })
+    this.scroller.scrollToIndex(this.dataList.length)
+    this.voiceToText = ""
   }
 
   build() {
@@ -334,7 +345,10 @@ export default struct ChatPage {
         ForEach(this.dataList, (item: ChatContentItemData) => {
           ListItem() {
             if (item.self) {
-              ListChatContentRightItem({ data: item })
+              ListChatContentRightItem({
+                data: item,
+                userAvatar: this.account?.userInfo?.avatar
+              })
             } else {
               ListChatContentLeftItem({ data: item })
             }
@@ -427,7 +441,7 @@ export default struct ChatPage {
           .width(65)
           .textAlign(TextAlign.Center)
           .height(36)
-          .backgroundColor("#58BE6A")
+          .backgroundColor("#ffb293fc")
           .fontSize(18)
           .visibility(this.chatText.length == 0 ? Visibility.None : Visibility.Visible)
           .borderRadius(6)
@@ -471,9 +485,9 @@ export default struct ChatPage {
     .padding({ bottom: WindowManager.navBarHeight })
   }
 
-  private sendTextMsg() {
+  private sendTextMsg() {// 发送文本消息
     this.dataList.push({
-      name: "鲁班",
+      name: this.account?.userInfo?.nickname || "我",
       headSrc: $r("app.media.ic_user_head2"),
       msgType: 0,
       self: true,
@@ -483,7 +497,7 @@ export default struct ChatPage {
     this.chatText = ""
   }
 
-  private showFuncBarWithAnim(show: boolean) {
+  private showFuncBarWithAnim(show: boolean) {// 显示或隐藏功能栏
     animateTo({ duration: 400, curve: Curve.Ease }, () => {
       if (show) {
         this.funcBarHeight = 250;
@@ -518,7 +532,7 @@ export default struct ChatPage {
           .width(10)
           .height(10)
           .backgroundColor(this.pressCancelVoicePostText === PressCancelVoicePostText.cancelVoice ? Color.Red :
-            "#95EC6A")
+            "#ffb293fc")
           .position({
             bottom: -5,
             left: "50%"
@@ -532,7 +546,7 @@ export default struct ChatPage {
       }
       .width("50%")
       .height(80)
-      .backgroundColor(this.pressCancelVoicePostText === PressCancelVoicePostText.cancelVoice ? Color.Red : "#95EC6A")
+      .backgroundColor(this.pressCancelVoicePostText === PressCancelVoicePostText.cancelVoice ? Color.Red : "#ffb293fc")
       .position({
         top: "40%",
         left: "50%"
@@ -681,4 +695,3 @@ export default struct ChatPage {
 const unDevTip = () => {
   Toast.show("功能正在开发中...")
 }
-

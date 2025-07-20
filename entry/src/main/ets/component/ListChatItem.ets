@@ -1,6 +1,6 @@
 @Preview
 @Component
-export default struct ListChatItem {
+export default struct ListChatItem {// 聊天列表
   data: ChatItemData = { headSrc: $r("app.media.ic_user_head1"),
     nickname: "同事小李",
     content: "领导，报给写好了，请过目",

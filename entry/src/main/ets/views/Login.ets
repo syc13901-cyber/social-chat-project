@@ -12,8 +12,8 @@ function LoginBuilder(){
 @Component
 export struct Login {
     @Consume pageInfos:NavPathStack;
-    @State email: string = 'zhousir@qq.com'
-    @State password: string = '123456'
+    @State email: string = ''
+    @State password: string = ''
 
     build() {
         NavDestination() {
@@ -54,7 +54,7 @@ export struct Login {
                     Button('账户登录', { type: ButtonType.Normal, stateEffect: true })
                         .width('90%')
                         .height(47)
-                        .backgroundColor('#4FD1C5')
+                        .backgroundColor('#ffc08af6')
                         .borderRadius(4)
                         .fontWeight(500)
                         .margin({ top: 43 })

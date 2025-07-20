@@ -3,8 +3,9 @@ import AudioRendererManager from '../utils/AudioRendererManager'
 
 @Preview
 @Component
-export default struct ListChatContentRightItem {
+export default struct ListChatContentRightItem {// 聊天内容-右侧
   data?: ChatContentItemData
+  userAvatar?: string = ""
 
   build() {
     Row() {
@@ -65,10 +66,10 @@ export default struct ListChatContentRightItem {
         })
         .strokeWidth(0)
 
-      Image(this.data?.headSrc)
+      Image(this.userAvatar ? ('http://47.109.74.84:9999' + this.userAvatar) : this.data?.headSrc)
         .width(48)
         .height(48)
-        .borderRadius(4)
+        .borderRadius(24)
         .margin({ left: 8, right: 20 })
         .objectFit(ImageFit.Cover)
 

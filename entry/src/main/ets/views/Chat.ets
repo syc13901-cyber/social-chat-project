@@ -8,19 +8,19 @@ export struct Chat {
   @State chatList: ChatItemData[] = [
     {
       headSrc: $r("app.media.ic_user_head2"),
-      nickname: "老婆",
-      content: "今晚给你做了好吃的，早点下班哦😊",
+      nickname: "王姐",
+      content: "昨天让你整理的季度报表初稿弄好了吗？",
       time: "17:21"
     },
     {
       headSrc: $r("app.media.ic_user_head3"),
-      nickname: "游戏好友",
-      content: "我今天又拿了五杀，牛逼不？",
+      nickname: "张工",
+      content: "你那边能不能协调一下备用的？",
       time: "15:38"
     },
     { headSrc: $r("app.media.ic_user_head4"),
-      nickname: "同事小李",
-      content: "领导，报给写好了，请过目",
+      nickname: "刘经理",
+      content: "明天上午 10 点的项目评审会",
       time: "14:12"
     },
     { headSrc: $r("app.media.ic_user_head5"),
@@ -33,8 +33,8 @@ export struct Chat {
       content: "这是我们公司的报价，希望您能考虑下",
       time: "昨天" },
     { headSrc: $r("app.media.ic_user_head7"),
-      nickname: "老弟",
-      content: "好的，哥",
+      nickname: "小周",
+      content: "刚才客户反馈我们上周交付的系统有个功能 bug",
       time: "周一" }
   ]
 
