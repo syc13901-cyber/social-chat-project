@@ -21,47 +21,47 @@ export struct Address{
             title: 'A',
             contactList: [
                 { name: "ArdWard", head: $r("app.media.ic_user_head2") },
-                { name: "阿联酋", head: $r("app.media.ic_user_head3") },
-                { name: "艾森宝", head: $r("app.media.ic_user_head6") }
+                { name: "阿瓦蒂", head: $r("app.media.ic_user_head3") },
+                { name: "奥伯龙", head: $r("app.media.ic_user_head6") }
             ]
         },
         {
             title: 'B',
             contactList: [
-                { name: "宝贝", head: $r("app.media.ic_user_head2") },
-                { name: "博士伦", head: $r("app.media.ic_user_head3") },
-                { name: "白雪公主", head: $r("app.media.ic_user_head6") }
+                { name: "贝德维尔", head: $r("app.media.ic_user_head2") },
+                { name: "博士", head: $r("app.media.ic_user_head3") },
+                { name: "宝宝巴士", head: $r("app.media.ic_user_head6") }
             ]
         },
         {
             title: 'C',
             contactList: [
-                { name: "陈先进", head: $r("app.media.ic_user_head7") },
+                { name: "陈总", head: $r("app.media.ic_user_head7") },
                 { name: "蔡伦", head: $r("app.media.ic_user_head5") },
-                { name: "褚卫娟", head: $r("app.media.ic_user_head1") }
+                { name: "崔少", head: $r("app.media.ic_user_head1") }
             ]
         },
         {
             title: 'D',
             contactList: [
                 { name: "达芬奇", head: $r("app.media.ic_user_head3") },
-                { name: "丁春秋", head: $r("app.media.ic_user_head4") },
+                { name: "丁姐", head: $r("app.media.ic_user_head4") },
                 { name: "邓浩", head: $r("app.media.ic_user_head5") }
             ]
         },
         {
             title: 'S',
             contactList: [
-                { name: "石破天", head: $r("app.media.ic_user_head3") },
-                { name: "宋浩杰", head: $r("app.media.ic_user_head5") }
+                { name: "石总", head: $r("app.media.ic_user_head3") },
+                { name: "宋浩", head: $r("app.media.ic_user_head5") }
             ]
         },
         {
             title: 'Z',
             contactList: [
-                { name: "猪八戒", head: $r("app.media.ic_user_head3") },
-                { name: "张宇恒", head: $r("app.media.ic_user_head4") },
-                { name: "周大年", head: $r("app.media.ic_user_head5") }
+                { name: "椎名立希", head: $r("app.media.ic_user_head3") },
+                { name: "贞德", head: $r("app.media.ic_user_head4") },
+                { name: "诸葛孔明", head: $r("app.media.ic_user_head5") }
             ]
         }
     ];

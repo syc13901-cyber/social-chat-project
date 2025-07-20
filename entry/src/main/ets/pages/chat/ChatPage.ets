@@ -122,28 +122,10 @@ export default struct ChatPage {
     {
       name: "鲁班",
       headSrc: $r("app.media.ic_user_head2"),
-      msgType: 1,
-      self: true,
-      msg: "",
-      img: $r("app.media.ic_its_over")
-    },
-    {
-      name: "鲁班",
-      headSrc: $r("app.media.ic_user_head2"),
       msgType: 0,
       self: true,
       msg: "我要迟到了！！！",
-    }
-    ,
-    {
-      name: "王昭君",
-      headSrc: $r("app.media.ic_user_head3"),
-      msgType: 1,
-      self: false,
-      msg: "",
-      img: $r("app.media.ic_hahaha")
-    }
-    ,
+    },
     {
       name: "王昭君",
       headSrc: $r("app.media.ic_user_head3"),

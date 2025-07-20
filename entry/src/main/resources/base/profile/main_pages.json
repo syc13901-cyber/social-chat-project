@@ -3,6 +3,7 @@
     "pages/Welcome",
     "pages/NetPage",
     "views/ChatPage",
-    "component/ChatingInformpage"
+    "component/ChatingInformpage",
+    "pages/SearchPage"
   ]
 }

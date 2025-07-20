@@ -33,7 +33,7 @@ struct ChatSettingsPage {
 
       Row() {
         // 头像
-        Image($r('app.media.avatar')) // 用户头像
+        Image($r('app.media.ic_user_head3')) // 用户头像
           .width(80)
           .height(80)
           .borderRadius(4)
@@ -46,7 +46,7 @@ struct ChatSettingsPage {
 
       Row() {
         // 昵称
-        Text('啊琳')
+        Text('张工')
           .fontSize(14)
           .fontWeight(FontWeight.Medium)
           .margin({ left: 44 })

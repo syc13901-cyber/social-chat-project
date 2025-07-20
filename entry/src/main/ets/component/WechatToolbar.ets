@@ -21,7 +21,7 @@ export default struct WechatToolbar {
             .height(22)
             .margin({ right: 20 })
             .onClick(() => {
-              router.pushUrl({ url: 'pages/search/SearchPage' })
+              router.pushUrl({ url: 'pages/SearchPage' })
             })
           Image($r('app.media.ic_add'))
             .width(25)

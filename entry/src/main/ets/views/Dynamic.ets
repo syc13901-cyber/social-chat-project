@@ -66,7 +66,7 @@ export struct Dynamic{
         Column() {
             // 顶部背景和头像
             Stack() {
-                Image($r('app.media.ic_user_head7'))
+                Image($r('app.media.circleBackground'))
                     .width('100%')
                     .height(220)
                     .objectFit(ImageFit.Cover)
@@ -90,9 +90,9 @@ export struct Dynamic{
                 .height(220)
                 .width('100%')
             }
-            // “朋友的新动态”入口
+            // “新回复”入口
             Row() {
-                Text('朋友的新动态')
+                Text('新回复')
                     .fontColor('#222')
                     .fontSize(16)
                     .margin({ left: 20 })
