@@ -4,6 +4,7 @@
     "pages/NetPage",
     "views/ChatPage",
     "component/ChatingInformpage",
-    "pages/SearchPage"
+    "pages/SearchPage",
+    "pages/AgentPage"
   ]
 }

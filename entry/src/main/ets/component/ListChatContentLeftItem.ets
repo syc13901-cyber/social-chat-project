@@ -58,7 +58,7 @@ export default struct ListChatContentLeftItem {
             bottom: 10
           })
           .borderRadius(4)
-          .backgroundColor("#a9ea7a")
+          .backgroundColor("#ffc08af6")
           .onClick(this.playVoice)
 
         } else {

@@ -41,7 +41,24 @@ export struct Chat {
   build() {
     Column() {
       WechatToolbar({ title: "消息(5)" })
-
+      // 新增：跳转到Agent界面的按钮
+      Button("进入智能体界面")
+        .width('90%')
+        .height(50)
+        .margin({ top: 20, bottom: 20, left: 20, right: 20 })
+        .backgroundColor('#ffc08af6')
+        .fontColor('#fff')
+        .fontSize(20)
+        .borderRadius(8)
+        .onClick(() => {
+          router.pushUrl({
+            url: 'pages/AgentPage',
+            params: {
+              name: '示例智能体',
+              url: 'https://www.coze.cn/store/agent/7528992818954616867?from=bots_card&bid=6gvf2tlog6000' // 可替换为实际智能体url
+            }
+          })
+        })
       List() {
         ForEach(this.chatList, (item: ChatItemData, index: number) => {
           ListItem() {
@@ -61,6 +78,7 @@ export struct Chat {
       .backgroundColor(Color.White)
       .width("100%")
       .height("100%")
+
 
     }
     .width("100%")

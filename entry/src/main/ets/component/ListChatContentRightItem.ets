@@ -22,7 +22,7 @@ export default struct ListChatContentRightItem {// 聊天内容-右侧
               bottom: 10
             })
             .borderRadius(4)
-            .backgroundColor("#a9ea7a")
+            .backgroundColor("#ffc08af6")
         } else if (this.data?.msgType === 2) {
           Row() {
             //Text(this.data?.msg)
@@ -43,7 +43,7 @@ export default struct ListChatContentRightItem {// 聊天内容-右侧
             bottom: 10
           })
           .borderRadius(4)
-          .backgroundColor("#a9ea7a")
+          .backgroundColor("#ffc08af6")
           .onClick(this.playVoice)
 
         } else {
@@ -51,7 +51,7 @@ export default struct ListChatContentRightItem {// 聊天内容-右侧
             .width(150)
             .borderRadius(4)
             .objectFit(ImageFit.Auto)
-            .backgroundColor("#a9ea7a")
+            .backgroundColor("#ffc08af6")
         }
       }
       .margin({ left: 80 })
@@ -60,7 +60,7 @@ export default struct ListChatContentRightItem {// 聊天内容-右侧
 
       Path()
         .commands(`M0 0 L${vp2px(10)} ${vp2px(7)} 0 ${vp2px(14)} Z`)
-        .fill('rgb(169,234,122)')
+        .fill('rgba(192, 138, 246, 1.00)')
         .margin({
           top: 18
         })

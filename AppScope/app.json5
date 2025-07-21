@@ -1,6 +1,6 @@
 {
   "app": {
-    "bundleName": "com.zhousir.zhichat",
+    "bundleName": "com.example.agentstore",
     "vendor": "example",
     "versionCode": 1000000,
     "versionName": "1.0.0",
